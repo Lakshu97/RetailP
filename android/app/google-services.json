@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "667052054542",
+    "project_id": "retailpulse-test",
+    "storage_bucket": "retailpulse-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667052054542:android:8fdca09c82d79730ae845f",
+        "android_client_info": {
+          "package_name": "com.retailpulse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCi8uEJJFDhSLOLvHHOJQ64mX1-_eu8Y_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

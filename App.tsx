@@ -5,16 +5,19 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import AppNavigation from "./AppModules/Navigation/AppNavigation";
-
-
+import AppNavigation from './AppModules/Navigation/AppNavigation';
+import {Provider} from 'react-redux';
+import store from './AppModules/Redux/store';
 function App(): JSX.Element {
+  useEffect(() => {}, []);
 
   return (
-    <SafeAreaView style={{flex:1}}>
-      <AppNavigation />
+    <SafeAreaView style={{flex: 1}}>
+      <Provider store={store}>
+        <AppNavigation />
+      </Provider>
     </SafeAreaView>
   );
 }
