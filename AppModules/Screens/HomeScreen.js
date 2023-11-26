@@ -134,6 +134,7 @@ const HomeScreen = () => {
             setReset(true);
             setSearchList(filteredData.length);
           }}
+          resetFilters={resetFilters}
         />
       </View>
     </PaperProvider>
