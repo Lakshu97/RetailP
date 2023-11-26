@@ -5,7 +5,7 @@ import styles from '../Styles/UploadImageStyles';
 import {useRoute} from '@react-navigation/native';
 import storage from '@react-native-firebase/storage';
 import * as ImagePicker from 'react-native-image-picker';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {
   addDownloadURL,
   addUploadedData,

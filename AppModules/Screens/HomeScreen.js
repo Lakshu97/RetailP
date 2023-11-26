@@ -23,24 +23,27 @@ const HomeScreen = () => {
   const [reset, setReset] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const onChangeSearch = query => {
-    let filtered = data.filter(item =>
-      item.name.toLowerCase().includes(query.toLowerCase()),
-    );
-    setSearchListquery(filtered.length);
-    setData(filtered);
-    setSearchQuery(query);
-  };
-  const clearSearch = () => {
+  const onChangeSearch = useCallback(
+    query => {
+      let filtered = data.filter(item =>
+        item.name.toLowerCase().includes(query.toLowerCase()),
+      );
+      setSearchListquery(filtered.length);
+      setData(filtered);
+      setSearchQuery(query);
+    },
+    [data],
+  );
+  const clearSearch = useCallback(() => {
     setData(Object.values(stores));
     setSearchQuery('');
     setSearchListquery(0);
-  };
-  const resetFilters = () => {
+  }, [stores]);
+  const resetFilters = useCallback(() => {
     setData(Object.values(stores));
     setReset(false);
     setSearchList(0);
-  };
+  }, [stores]);
   useEffect(() => {
     setData(Object.values(stores));
   }, [stores]);
@@ -55,7 +58,10 @@ const HomeScreen = () => {
     }
     dispatch(filterStores(filteredItems));
   }, []);
-  const renderStoreItem = item => <StoreCard storeData={item.item} />;
+  const renderStoreItem = useCallback(
+    item => <StoreCard storeData={item.item} />,
+    [],
+  );
   return (
     <PaperProvider>
       <View style={styles.container}>
