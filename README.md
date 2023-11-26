@@ -1,4 +1,4 @@
-This is a new RetailPulse project,[`@react-native-community/cli`]([https://github.com/react-native-community/cli](https://kiranaclub.notion.site/Retail-Pulse-React-Native-Assignment-7a5e975c2a1e431f888372643d27f85c)).
+This is a new RetailPulse project,[`Assignment Link`]([https://github.com/react-native-community/cli](https://kiranaclub.notion.site/Retail-Pulse-React-Native-Assignment-7a5e975c2a1e431f888372643d27f85c)).
 
 # Getting Started
 
@@ -23,9 +23,11 @@ Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _roo
 
 ```bash
 # using npm
+npm install
 npm run android
 
 # OR using Yarn
+yarn install
 yarn android
 ```
 
