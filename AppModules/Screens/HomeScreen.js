@@ -14,8 +14,11 @@ const HomeScreen = () => {
   const storesFromAPI = useSelector(state => state.home.storeListApi);
   const userStores = useSelector(state => state.home.userStoreList);
   const stores = useSelector(state => state.home.stores);
+  const noStores = useSelector(state => state.home.noOfStores);
   const loggedInUser = useSelector(state => state.login.loggedInUser);
   const [data, setData] = useState([]);
+  const [searchList, setSearchList] = useState(0);
+  const [searchListquery, setSearchListquery] = useState(0);
   const [modal, setModal] = useState(false);
   const [reset, setReset] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -24,16 +27,19 @@ const HomeScreen = () => {
     let filtered = data.filter(item =>
       item.name.toLowerCase().includes(query.toLowerCase()),
     );
+    setSearchListquery(filtered.length);
     setData(filtered);
     setSearchQuery(query);
   };
   const clearSearch = () => {
     setData(Object.values(stores));
     setSearchQuery('');
+    setSearchListquery(0);
   };
   const resetFilters = () => {
     setData(Object.values(stores));
     setReset(false);
+    setSearchList(0);
   };
   useEffect(() => {
     setData(Object.values(stores));
@@ -63,18 +69,28 @@ const HomeScreen = () => {
           mode={'outlined'}
         />
         {searchQuery.length > 0 ? (
-          <Pressable onPress={clearSearch} style={styles.clearSearch}>
+          <View>
+            <Pressable onPress={clearSearch} style={styles.clearSearch}>
+              <Text style={styles.clearSearchTextStyle}>
+                Clear Search & Go Back
+              </Text>
+            </Pressable>
             <Text style={styles.clearSearchTextStyle}>
-              Clear Search & Go Back
+              {searchListquery} Results
             </Text>
-          </Pressable>
+          </View>
         ) : null}
         {reset ? (
-          <Pressable onPress={resetFilters} style={styles.clearSearch}>
+          <View>
+            <Pressable onPress={resetFilters} style={styles.clearSearch}>
+              <Text style={styles.clearSearchTextStyle}>
+                Reset Filters & Go Back
+              </Text>
+            </Pressable>
             <Text style={styles.clearSearchTextStyle}>
-              Reset Filters & Go Back
+              {searchList} Results
             </Text>
-          </Pressable>
+          </View>
         ) : null}
         <View style={styles.flatList}>
           <FlatList
@@ -85,7 +101,9 @@ const HomeScreen = () => {
             renderItem={renderStoreItem}
             ListHeaderComponent={() => (
               <View style={styles.filters}>
-                <Text style={styles.headingTextStyle}> Store List </Text>
+                <Text style={styles.headingTextStyle}>
+                  Store List: {noStores} Stores{' '}
+                </Text>
                 <Button
                   style={styles.applyFilters}
                   onPress={() => setModal(true)}
@@ -108,6 +126,7 @@ const HomeScreen = () => {
             setModal(false);
             setData(filteredData);
             setReset(true);
+            setSearchList(filteredData.length);
           }}
         />
       </View>
