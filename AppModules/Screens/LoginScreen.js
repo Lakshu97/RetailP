@@ -5,7 +5,7 @@ import {MD2Colors, Text, TextInput, Button} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {getLoginData, sendLoginData} from '../Redux/Reducers/LoginReducer';
 import {useNavigation} from '@react-navigation/native';
-import { addStoreList } from "../Redux/Reducers/HomeReducer";
+import {addStoreList} from '../Redux/Reducers/HomeReducer';
 
 const LoginScreen = () => {
   const [text, setText] = useState('');
@@ -17,11 +17,11 @@ const LoginScreen = () => {
     dispatch(getLoginData());
   }, []);
   const submitButton = useCallback(() => {
-    let result = Object.values(userData).find(item => item.name === text);
-    if (result && pass === 'Password') {
+    let result = Object.values(userData).find(item => item.name === text.trim());
+    if (result) {
       dispatch(sendLoginData(result));
-      dispatch(addStoreList(result.stores))
-      console.log(`Length of store = ${result.stores.length}`)
+      dispatch(addStoreList(result.stores));
+      console.log(`Length of store = ${result.stores.length}`);
       ToastAndroid.showWithGravity(
         'Login SuccessFull',
         ToastAndroid.SHORT,

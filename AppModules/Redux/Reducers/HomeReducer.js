@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 const INITIAL_STATE = {
   userStoreList: {},
   storeListApi: {},
-  stores: {},
+  stores: [],
 };
 const homeReducer = createSlice({
   name: 'HomeReducer',
