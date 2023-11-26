@@ -7,7 +7,6 @@ import {filterStores} from '../Redux/Reducers/HomeReducer';
 import StoreCard from './Components/StoreCard';
 import {Provider as PaperProvider} from 'react-native-paper';
 
-import {useNavigation} from '@react-navigation/native';
 import FilterModal from './Components/FilterModal';
 const width = Dimensions.get('window').width;
 const HomeScreen = () => {
@@ -18,6 +17,7 @@ const HomeScreen = () => {
   const loggedInUser = useSelector(state => state.login.loggedInUser);
   const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
+  const [reset, setReset] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const onChangeSearch = query => {
@@ -30,6 +30,10 @@ const HomeScreen = () => {
   const clearSearch = () => {
     setData(Object.values(stores));
     setSearchQuery('');
+  };
+  const resetFilters = () => {
+    setData(Object.values(stores));
+    setReset(false);
   };
   useEffect(() => {
     setData(Object.values(stores));
@@ -58,11 +62,20 @@ const HomeScreen = () => {
           value={searchQuery}
           mode={'outlined'}
         />
-        {searchQuery.length > 0 && (
+        {searchQuery.length > 0 ? (
           <Pressable onPress={clearSearch} style={styles.clearSearch}>
-            <Text style={styles.clearSearchTextStyle}> Clear Search </Text>
+            <Text style={styles.clearSearchTextStyle}>
+              Clear Search & Go Back
+            </Text>
           </Pressable>
-        )}
+        ) : null}
+        {reset ? (
+          <Pressable onPress={resetFilters} style={styles.clearSearch}>
+            <Text style={styles.clearSearchTextStyle}>
+              Reset Filters & Go Back
+            </Text>
+          </Pressable>
+        ) : null}
         <View style={styles.flatList}>
           <FlatList
             data={data}
@@ -71,10 +84,14 @@ const HomeScreen = () => {
             ItemSeparatorComponent={() => <View style={styles.separator} />}
             renderItem={renderStoreItem}
             ListHeaderComponent={() => (
-              <View>
+              <View style={styles.filters}>
                 <Text style={styles.headingTextStyle}> Store List </Text>
-                <Button onPress={() => setModal(true)} mode={'outlined'} textColor={MD2Colors.black}>
-                 Apply Filters
+                <Button
+                  style={styles.applyFilters}
+                  onPress={() => setModal(true)}
+                  mode={'outlined'}
+                  textColor={MD2Colors.black}>
+                  Apply Filters
                 </Button>
               </View>
             )}
@@ -84,7 +101,14 @@ const HomeScreen = () => {
         <FilterModal
           isVisible={modal}
           onDismiss={() => setModal(false)}
-          applyFilters={() => {}}
+          applyFilters={query => {
+            const filteredData = data.filter(item =>
+              query.includes(item.route),
+            );
+            setModal(false);
+            setData(filteredData);
+            setReset(true);
+          }}
         />
       </View>
     </PaperProvider>

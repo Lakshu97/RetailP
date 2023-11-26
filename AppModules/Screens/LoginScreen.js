@@ -17,8 +17,10 @@ const LoginScreen = () => {
     dispatch(getLoginData());
   }, []);
   const submitButton = useCallback(() => {
-    let result = Object.values(userData).find(item => item.name === text.trim());
-    if (result) {
+    let result = Object.values(userData).find(
+      item => item.name === text.trim(),
+    );
+    if (result && pass.trim() === 'Password') {
       dispatch(sendLoginData(result));
       dispatch(addStoreList(result.stores));
       console.log(`Length of store = ${result.stores.length}`);

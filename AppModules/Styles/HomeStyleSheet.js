@@ -39,10 +39,18 @@ export default StyleSheet.create({
     borderWidth: 1.1,
     borderRadius: 4,
     borderColor: MD2Colors.orange800,
-    color:MD2Colors.black
+    color: MD2Colors.black,
   },
   clearSearchTextStyle: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: MD2Colors.black,
+  },
+  applyFilters: {
+    marginVertical: 10,
+    padding: 5,
+  },
+  filters: {
+    marginVertical: 5,
   },
 });
