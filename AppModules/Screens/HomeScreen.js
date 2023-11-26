@@ -15,8 +15,6 @@ const HomeScreen = () => {
     var filteredItems = {};
     for (var i = 0; i < userStores.length; i++) {
       var id = userStores[i];
-
-      // Check if the id exists in json1
       if (storesFromAPI.hasOwnProperty(id)) {
         filteredItems[id] = storesFromAPI[id];
       }
@@ -25,7 +23,7 @@ const HomeScreen = () => {
   }, []);
   return (
     <View style={styles.container}>
-      <Text>LoggedIn User {loggedInUser.name}</Text>
+      <Text style={styles.textStyle}>Logged User: {loggedInUser.name}</Text>
     </View>
   );
 };
